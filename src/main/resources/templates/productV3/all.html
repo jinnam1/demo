@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>상품목록</title>
+  </head>
+  <body>
+    <h3>상품목록</h3>
+    <form id="frm" action="/products/del" method="post">
+      <table>
+        <thead>
+          <tr>
+            <th>상품ID</th>
+            <th>상품명</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="product:${all}">
+            <td>
+              <input
+                type="checkbox"
+                name="productIds"
+                th:value="${product.productId}"
+              />
+            </td>
+            <td th:text="${product.productId}">1</td>
+            <td>
+              <a
+                th:href="@{/products/{id}(id=${product.productId})}"
+                th:text="${product.pname}"
+                >컴퓨터</a
+              >
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </form>
+    <!--  <a href="/products/add">상품등록</a>-->
+    <div>
+      <input type="checkbox" id="selectAll" />
+      <label for="selectAll">전체선택</label>
+      <button id="btnAdd">상품등록</button>
+      <button id="btnDels">삭제</button>
+    </div>
+    <script>
+      // 전체 선택
+      const selectAllEle = document.getElementById("selectAll");
+      selectAllEle.addEventListener(
+        "click",
+        (e) => {
+          const checkboxesEle = document.querySelectorAll(
+            'input[name="productIds"]'
+          );
+          if (e.target.checked) {
+            Array.from(checkboxesEle).forEach(
+              (checkbox) => (checkbox.checked = true)
+            );
+          } else {
+            Array.from(checkboxesEle).forEach(
+              (checkbox) => (checkbox.checked = false)
+            );
+          }
+        },
+        false
+      );
+
+      // 삭제
+      const btnDelsEle = document.getElementById("btnDels");
+      btnDelsEle.addEventListener(
+        "click",
+        (e) => {
+          if (!confirm("삭제하시겠습니까?")) return;
+          document.getElementById("frm").submit();
+        },
+        false
+      );
+
+      const btnAdd = document.getElementById("btnAdd");
+      btnAdd.addEventListener(
+        "click",
+        (e) => {
+          location.href = "/products/add";
+        },
+        false
+      );
+    </script>
+  </body>
+</html>

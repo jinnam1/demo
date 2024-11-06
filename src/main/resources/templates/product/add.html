@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title th:text="#{title.product.add}">상품등록</title>
+    <link rel="stylesheet" href="/css/common.css" />
+    <style></style>
+  </head>
+  <body>
+    <h3 th:text="#{title.product.add}">상품등록</h3>
+    <form id="frm" action="" method="post" th:object="${saveForm}">
+      <div><span class="err" id="globalErr"></span></div>
+      <!--/* <div class="err" th:errors="${saveForm}"/> */-->
+
+      <div th:if="${#fields.hasGlobalErrors()}">
+        <p
+          class="err"
+          th:each="err:${#fields.globalErrors()}"
+          th:text="${err}"
+        ></p>
+      </div>
+      <div>
+        <label  th:text="#{label.product.pname}"for="pname">상품명</label>
+        <input type="text" name="pname" id="pname" th:value="*{pname}" />
+        <span class="err" id="errPname"></span>
+        <!--/*<span class="err"  th:errors="${saveForm.pname}"></span>*/-->
+        <span
+          class="err"
+          th:each="err:${#fields.errors('pname')}"
+          th:text="${err}"
+        ></span>
+      </div>
+      <div>
+        <label th:text="#{label.product.price}" for="price">가격</label>
+        <input type="text" name="price" id="price" th:value="*{price}" />
+        <span class="err" id="errPrice"></span>
+        <span class="err" th:errors="*{price}"></span>
+      </div>
+      <div>
+        <label th:text="#{label.product.quantity}" for="quantity">수량</label>
+        <input
+          type="text"
+          name="quantity"
+          id="quantity"
+          th:value="*{quantity}"
+        />
+        <span class="err" id="errQuantity"></span>
+        <span class="err" th:errors="*{quantity}"></span>
+      </div>
+      <div>
+        <button th:text="#{button.add}" type="submit" id="btnAdd">등록</button
+        ><button th:text="#{button.list}" type="button" id="btnFindAll">목록</button>
+      </div>
+    </form>
+    <script type="module">
+      import { getBytesSize } from "/js/common.js";
+      // 등록
+      btnAdd.addEventListener(
+        "click",
+        (e) => {
+          // e.preventDefault(); // 기본 이벤트 막기
+          // console.log("등록!");
+
+          // // 오류 메세지 초기화
+          // errPname.textContent = "";
+          // errPrice.textContent = "";
+          // errQuantity.textContent = "";
+
+          // // 기본 이벤트를 막아 놓고 여기서 유효성 검사 로직 넣기
+          // const pnameVal = pname.value.trim();
+          // const priceVal = price.value.trim();
+          // const quantityVal = quantity.value.trim();
+
+          // // 상품명
+          // if (pnameVal.length == 0) {
+          //   pname.focus();
+          //   errPname.textContent = "상품이름은 필수 입력입니다.";
+          //   return;
+          // } else if (getBytesSize(pnameVal) > 30) {
+          //   pname.focus();
+          //   // errPname.textContent =
+          //   //   "상품이름은 한글 1글자 3바이트, 영문 1글자 1바이트, 총 30바이트의 길이를 초과할 수 없습니다.";
+          //   errPname.textContent = "상품이름은 한글 10자를 초과할 수 없습니다.";
+          //   return;
+          // }
+
+          // // 가격
+          // if (priceVal.length == 0) {
+          //   price.focus();
+          //   errPrice.textContent = "가격은 필수 입력입니다.";
+          //   return;
+          // } else if (isNaN(priceVal)) {
+          //   price.focus();
+          //   errPrice.textContent = "가격은 숫자여야 합니다.";
+          //   return;
+          // } else if (priceVal.length > 10) {
+          //   price.focus();
+          //   errPrice.textContent = "가격은 10자리를 초과 할 수 없습니다.";
+          //   return;
+          // } else if (priceVal < 1000) {
+          //   price.focus();
+          //   errPrice.textContent = "가격은 1000원 이상이어야 합니다..";
+          //   return;
+          // }
+
+          // // 수량
+          // if (quantityVal.length == 0) {
+          //   quantity.focus();
+          //   errQuantity.textContent = "수량은 필수 입력입니다.";
+          //   return;
+          // } else if (isNaN(quantityVal)) {
+          //   quantity.focus();
+          //   errQuantity.textContent = "수량은 숫자여야 합니다.";
+          //   return;
+          // } else if (quantityVal.length > 10) {
+          //   quantity.focus();
+          //   errQuantity.textContent = "수량은 10자리를 초과 할 수 없습니다.";
+          //   return;
+          // } else if (quantityVal < 1) {
+          //   quantity.focus();
+          //   errQuantity.textContent = "수량은 양수이어야 합니다.";
+          //   return;
+          // }
+
+          // // 2개 이상의 필드로 유효성 검사를 진행할때
+          // // 총금액(가격 * 수량)이 1000만원을 초과할 수 없다.
+          // if (priceVal * quantityVal > 10000000) {
+          //   globalErr.textContent =
+          //     "총 금액( 가격 * 수량 )이 1000만원을 초과할 수 없습니다.";
+          //   return;
+          // }
+
+          // 오류가 나지 않았을때 submit
+          frm.submit();
+        },
+        false
+      );
+
+      // 목록
+
+      btnFindAll.addEventListener(
+        "click",
+        (e) => {
+          location.href = `/products`;
+        },
+        false
+      );
+    </script>
+  </body>
+</html>

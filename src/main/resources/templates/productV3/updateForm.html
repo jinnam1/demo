@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>상품수정</title>
+</head>
+<body>
+  <h3>상품수정</h3>
+  <form id="frm" action="" method="post">
+    <div><label for="">상품ID</label><input type="text" name="productId" id="productId"readonly th:value="${updateForm.productId}"></div>
+    <div><label for="">상품명</label><input type="text" name="pname"  th:value="${updateForm.pname}"></div>
+    <div><label for="">가격</label><input type="text" name="price"  th:value="${updateForm.price}"></div>
+    <div><label for="">수량</label><input type="text" name="quantity"  th:value="${updateForm.quantity}"></div>
+  </form>
+  <div>
+    <button id="btnUpdate">저장</button>
+    <button id="btnCancel">취소</button>
+    <button id="btnFindAll">목록</button>
+  </div>
+  <script>
+    const btnUpdateEle = document.getElementById('btnUpdate');
+    const btnCancelEle = document.getElementById('btnCancel');
+    const btnFindAllEle = document.getElementById('btnFindAll');
+
+    // 저장
+    btnUpdateEle.addEventListener('click',e=>{
+      const frmEle = document.getElementById('frm');
+      frmEle.submit();
+    },false)
+
+    // 취소
+    btnCancelEle.addEventListener('click',e=>{
+      //history.go(-1); 브라우저에서 뒤로가기 버튼
+      const productId = document.getElementById('productId')
+      location.href = `/products/${productId.value}`;
+    },false)
+
+    //목록
+    btnFindAllEle.addEventListener('click',e=>{
+      location.href = `/products`;
+    },false)
+
+
+  </script>
+</body>
+</html>

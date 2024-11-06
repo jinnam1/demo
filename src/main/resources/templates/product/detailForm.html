@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>상품상세</title>
+  <link rel="stylesheet" href="/css/product/detailForm.css">
+  <script defer src="/js/product/detailForm.js"></script>
+</head>
+<body>
+  <h3>상품상세</h3>
+  <form action="" method="post">
+    <div><label for="">상품ID</label><input type="text" name="productId" id="productId"readonly th:value="${detailForm.productId}"></div>
+    <div><label for="">상품명</label><input type="text" name="pname" readonly th:value="${detailForm.pname}"></div>
+    <div><label for="">가격</label><input type="text" name="price" readonly th:value="${detailForm.price}"></div>
+    <div><label for="">수량</label><input type="text" name="quantity" readonly th:value="${detailForm.quantity}"></div>
+  </form>
+
+  <div>
+    <button id="btnUpdate">수정</button>
+    <button id="btnDelete">삭제</button>
+    <button id="btnFindAll">목록</button>
+  </div>
+</body>
+</html>
